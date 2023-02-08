@@ -13,11 +13,17 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
+
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
 
-int	panic(char *str, int i);
+int		panic(char *str, int i);
+long	ft_atol(char *str);
+
+int		get_philonumber(char *argv);
 
 # endif

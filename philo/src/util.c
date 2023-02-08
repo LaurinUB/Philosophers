@@ -12,6 +12,32 @@
 
 #include "philo.h"
 
+long	ft_atol(char *str)
+{
+	long	n;
+	int		sign;
+
+	n = 0;
+	sign = 1;
+	if (!str)
+		return (0);
+	while (*str == ' ' || *str == '\t' || *str == '\r' \
+		|| *str == '\n' || *str == '\v' || *str == '\f')
+		str++;
+	if ((*str == '+' || *str == '-'))
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
+	while (*str < 58 && *str > 47)
+	{
+		n = 10 * n + (*str - '0');
+		str++;
+	}
+	return (n * sign);
+}
+
 void	ft_putendl_fd(char *str, int fd)
 {
 	int	i;
