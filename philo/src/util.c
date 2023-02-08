@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/08 18:46:42 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/02/08 18:46:46 by luntiet-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	ft_putendl_fd(char *str, int fd)
@@ -12,6 +24,7 @@ void	ft_putendl_fd(char *str, int fd)
 	}
 	write(fd, "\n", 1);
 }
+
 int	panic(char *msg, int exit_code)
 {
 	ft_putendl_fd(msg, 2);
