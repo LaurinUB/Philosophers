@@ -21,8 +21,7 @@ long	ft_atol(char *str)
 	sign = 1;
 	if (!str)
 		return (0);
-	while (*str == ' ' || *str == '\t' || *str == '\r' \
-		|| *str == '\n' || *str == '\v' || *str == '\f')
+	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	if ((*str == '+' || *str == '-'))
 	{
@@ -55,4 +54,13 @@ int	panic(char *msg, int exit_code)
 {
 	ft_putendl_fd(msg, 2);
 	return (exit_code);
+}
+
+void	ft_sleep(int ms)
+{
+	while (ms)
+	{
+		usleep(1000);
+		ms--;
+	}
 }

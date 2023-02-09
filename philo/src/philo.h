@@ -21,9 +21,25 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef enum e_state
+{
+	THINK,
+	EAT,
+	SLEEP,
+}	t_state;
+
+typedef struct s_philo
+{
+	pthread_t	id;
+	t_state		state;
+	int			fork;
+}	t_philo;
+
 int		panic(char *str, int i);
 long	ft_atol(char *str);
+void	ft_putendl_fd(char *str, int fd);
+void	ft_sleep(int ms);
 
-int		get_philonumber(char *argv);
+int		check_number(char *argv);
 
 # endif
