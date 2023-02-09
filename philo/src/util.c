@@ -6,11 +6,27 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:42 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/08 18:46:46 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:13:49 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+unsigned long	time_in_ms(void)
+{
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+void	ft_sleep(unsigned long ms)
+{
+	unsigned long	start;
+
+	start = time_in_ms();
+	while ((time_in_ms() - start) < ms)
+		usleep(1);
+}
 
 long	ft_atol(char *str)
 {
@@ -54,13 +70,4 @@ int	panic(char *msg, int exit_code)
 {
 	ft_putendl_fd(msg, 2);
 	return (exit_code);
-}
-
-void	ft_sleep(int ms)
-{
-	while (ms)
-	{
-		usleep(1000);
-		ms--;
-	}
 }

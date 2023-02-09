@@ -8,6 +8,7 @@ DIR_DUP = mkdir -p $(@D)
 SRC = main.c \
 	  	util.c \
 		input.c \
+		struct.c \
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

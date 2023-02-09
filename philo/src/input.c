@@ -5,15 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 10:13:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/09 10:13:38 by luntiet-         ###   ########.fr       */
+/*   Created: 2023/02/09 16:01:09 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/02/09 18:34:20 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "philo.h"
 
-int	check_number(char *argv)
+int	check_nbr(char *argv)
 {
 	int	number;
 
