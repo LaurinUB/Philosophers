@@ -14,6 +14,16 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
+LSANLIB = /LeakSanitizer/liblsan.a
+lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
+lsan: LINK_FLAGS += -LLeakSanitizer -llsan -lc++
+lsan: fclean $(LSANLIB)
+lsan: all
+
+$(LSANLIB):
+	@if [ ! -d "LeakSanitizer" ]; then git clone https://github.com/mhahnFr/LeakSanitizer.git; fi
+	@$(MAKE) -C LeakSanitizer
+
 $(NAME): $(OBJ)
 	$(CC) $(LINK_FLAGS) $(OBJ) -o $(NAME)
 
@@ -26,6 +36,7 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf LeakSanitizer
 
 re: fclean all
 
