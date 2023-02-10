@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:42 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/09 19:43:36 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:50:17 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ unsigned long	time_in_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	ft_sleep(unsigned long ms)
+void	sleep_ms(unsigned long ms)
 {
 	unsigned long	start;
 
@@ -54,7 +54,7 @@ long	ft_atol(char *str)
 	return (n * sign);
 }
 
-void	ft_putendl_fd(char *str, int fd)
+void	putendl_fd(char *str, int fd)
 {
 	int	i;
 
@@ -69,6 +69,6 @@ void	ft_putendl_fd(char *str, int fd)
 
 int	panic(char *msg, int exit_code)
 {
-	ft_putendl_fd(msg, 2);
+	putendl_fd(msg, 2);
 	return (exit_code);
 }
