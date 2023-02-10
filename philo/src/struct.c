@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/10 10:51:39 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 11:30:00 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,25 @@ t_philo	*init_philo(t_time *t)
 	philo->state = SLEEP;
 	philo->time = t;
 	philo->i = 1;
+	pthread_mutex_init(&philo->lock, NULL);
 	return (philo);
+}
+
+void	free_philo(t_philo *philo)
+{
+	pthread_mutex_destroy(&philo->lock);
+	free(philo->time);
+	free(philo);
+}
+
+void	free_all_philos(t_philo **philo)
+{
+	int	i;
+
+	i = 0;
+	while (philo[i])
+	{
+		free_philo(philo[i]);
+		i++;
+	}
 }

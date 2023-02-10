@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/10 10:52:04 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/10 11:36:23 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,9 @@ void	myturn(t_philo *philo)
 	i = 20;
 	while (i)
 	{
-		pthread_mutex_lock(philo->fork);
-		printf("%lu : philo %d\n", time_in_ms() - philo->time->start_time, philo->i);
-		sleep_ms(philo->time->time_to_eat);	
-		pthread_mutex_unlock(philo->fork);
-		sleep_ms(1);
-		i--;
-	}
-}
-
-void	yourturn(t_time *t)
-{
-	int i;
-
-	i = 10;
-	while (i)
-	{
-		printf("%lu : main\n", time_in_ms() - t->start_time);
-		sleep_ms(t->time_to_sleep);
+		eat(philo);
+		think(philo);
+		slp(philo);
 		i--;
 	}
 }
@@ -65,6 +50,7 @@ int	main(int argc, char **argv)
 		pthread_create(&philos[i]->tid, NULL, (void *)myturn, philos[i]);
 		i++;
 	}
+	philos[i] = NULL;
 	pthread_join(philos[0]->tid, NULL);
 	pthread_join(philos[1]->tid, NULL);
 	pthread_mutex_destroy(&lock);
