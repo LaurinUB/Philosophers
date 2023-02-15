@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 16:01:09 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/10 15:27:34 by luntiet-         ###   ########.fr       */
+/*   Created: 2023/02/15 10:49:47 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/02/15 11:14:21 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_nbr(char *argv)
+char	*get_philo_color(t_philo *philo)
 {
-	int	number;
-
-	if (!argv)
-		return (-1);
-	number = ft_atol(argv);
-	if (number <= INT_MAX && number > 0)
-		return (number);
-	return (-1);
+	if (philo->i % 7 == 0)
+		return (GRN);
+	else if (philo->i % 6 == 0)
+		return (BLU);
+	else if (philo->i % 5 == 0)
+		return (YEL);
+	else if (philo->i % 4 == 0)
+		return (MAG);
+	else if (philo->i % 3 == 0)
+		return (CYN);
+	else if (philo->i % 2 == 0)
+		return (RED);
+	else
+		return (WHT);
 }
-

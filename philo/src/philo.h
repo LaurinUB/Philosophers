@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/10 11:29:47 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:14:29 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define PHILO_H
 
 # define INT_MAX 2147483647
+# define RED "\x1B[31m"
+# define GRN "\x1B[32m"
+# define YEL "\x1B[33m"
+# define BLU "\x1B[34m"
+# define MAG "\x1B[35m"
+# define CYN "\x1B[36m"
+# define WHT "\x1B[37m"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -64,4 +71,5 @@ unsigned long	time_in_ms(void);
 
 int				check_nbr(char *argv);
 
+char			*get_philo_color(t_philo *philo);
 #endif
