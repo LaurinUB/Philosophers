@@ -9,6 +9,7 @@ SRC = main.c \
 	  	util.c \
 		input.c \
 		struct.c \
+		struct_free.c \
 		state.c \
 		color.c
 

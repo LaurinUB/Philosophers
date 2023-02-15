@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 16:55:15 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:07:43 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_time	*init_time(int ttd, int tte, int tts)
 	return (time);
 }
 
-t_philo	*init_philo(t_time *t)
+static t_philo	*init_philo(t_time *t)
 {
 	t_philo		*philo;
 
@@ -38,7 +38,7 @@ t_philo	*init_philo(t_time *t)
 	return (philo);
 }
 
-t_fork	*init_fork(int index)
+static t_fork	*init_fork(int index)
 {
 	t_fork	*fork;	
 
@@ -53,7 +53,11 @@ t_table	*init_table(t_time *tv, int nbr_of_philos)
 	t_table	*table;
 	int		i;
 
+	if (nbr_of_philos < 1 || !tv)
+		return (NULL);
 	table = malloc(sizeof(t_table));
+	table->philos = malloc(sizeof(t_philo *) * nbr_of_philos + 1);
+	table->forks = malloc(sizeof(t_fork *) * nbr_of_philos + 1);
 	i = 0;
 	while (i < nbr_of_philos)
 	{
@@ -64,5 +68,7 @@ t_table	*init_table(t_time *tv, int nbr_of_philos)
 	}
 	table->philos[i] = NULL;
 	table->forks[i] = NULL;
+	table->philo_count = nbr_of_philos;
+	table->current = 1;
 	return (table);
 }

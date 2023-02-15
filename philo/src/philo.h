@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 16:50:51 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:51:07 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,21 @@ typedef struct s_table
 {
 	t_fork	**forks;
 	t_philo	**philos;
+	int		philo_count;
+	int		current;
 }	t_table;
 
 t_time			*init_time(int ttd, int tte, int tts);
-t_philo			*init_philo(t_time *t);
-t_fork			*init_fork(int index);
-
-int				philo_count(t_philo **philos);
+t_table			*init_table(t_time *tv, int nbr_of_philos);
 
 void			free_philo(t_philo *philo);
 void			free_all_philos(t_philo **philo);
 void			free_fork(t_fork *fork);
+void			free_table(t_table *table);
 
-void			slp(t_philo *philo);
-void			eat(t_philo *philo);
+void			eat(t_philo *philo, t_fork *right_fork, t_fork *left_fork);
 void			think(t_philo *philo);
+void			slp(t_philo *philo);
 
 int				panic(char *str, int i);
 long			ft_atol(char *str);

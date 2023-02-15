@@ -6,49 +6,46 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 16:11:54 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:00:34 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	myturn(t_philo *philo)
+void	myturn(t_table *table)
 {
 	int	i;
 
 	i = 20;
+	if (!table->philos[table->current + 1])
+		table->current = 1;
 	while (i)
 	{
-		eat(philo);
-		think(philo);
-		slp(philo);
+		eat(table->philos[table->current], table->forks[table->current], table->forks[table->current + 1]);
+		think(table->philos[table->current]);
+		slp(table->philos[table->current]);
 		i--;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_philo	**philos;
 	t_time	*tv;
-	int		i;
+	t_table	*table;
 
-	i = 0;
+	table = NULL;
+	tv = NULL;
 	if (argc != 5 && argc != 6)
 		return (panic("4 arguments need 5th is optional", ERROR));
-	philos = malloc(ft_atol(argv[1]) * sizeof(t_philo));
 	tv = init_time(check_nbr(argv[2]), check_nbr(argv[3]), check_nbr(argv[4]));
 	if (!tv)
 		return (panic("all argument shoudl be > 0 and < INT_MAX", ERROR));
-	while (i < ft_atol(argv[1]))
+	table = init_table(tv, check_nbr(argv[1]));
+	if (!table)
 	{
-		philos[i] = init_philo(tv);
-		philos[i]->number += i;
-		pthread_create(&philos[i]->tid, NULL, (void *)myturn, philos[i]);
-		i++;
+		// free_table(table);
+		panic("number of Philosophers should be > 0", ERROR);
 	}
-	philos[i] = NULL;
-	i = -1;
-	while (philos[++i])
-		pthread_join(philos[i]->tid, NULL);
+	// free_table(table);
 	return (SUCCESS);
 }
