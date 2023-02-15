@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 11:14:29 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:50:51 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PHILO_H
 
 # define INT_MAX 2147483647
+# define ERROR 1
+# define SUCCESS 0
 # define RED "\x1B[31m"
 # define GRN "\x1B[32m"
 # define YEL "\x1B[33m"
@@ -35,7 +37,6 @@ typedef enum e_state
 	SLEEP,
 }	t_state;
 
-
 typedef struct s_time
 {
 	int				time_to_eat;
@@ -48,16 +49,31 @@ typedef struct s_philo
 {
 	pthread_t		tid;
 	t_state			state;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	lock;
 	t_time			*time;
-	int				i;
+	int				number;
 }	t_philo;
+
+typedef struct s_fork
+{
+	int				index;
+	pthread_mutex_t	*lock;
+}	t_fork;
+
+typedef struct s_table
+{
+	t_fork	**forks;
+	t_philo	**philos;
+}	t_table;
 
 t_time			*init_time(int ttd, int tte, int tts);
 t_philo			*init_philo(t_time *t);
+t_fork			*init_fork(int index);
+
+int				philo_count(t_philo **philos);
+
 void			free_philo(t_philo *philo);
 void			free_all_philos(t_philo **philo);
+void			free_fork(t_fork *fork);
 
 void			slp(t_philo *philo);
 void			eat(t_philo *philo);

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   struct_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 16:01:09 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 16:12:01 by luntiet-         ###   ########.fr       */
+/*   Created: 2023/02/15 16:37:06 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/02/15 16:50:23 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_nbr(char *argv)
+int	philo_count(t_philo **philos)
 {
-	int	number;
+	int	count;
 
-	if (!argv)
-		return (-1);
-	number = ft_atol(argv);
-	if (number <= INT_MAX && number > 0)
-		return (number);
-	return (-1);
+	count = 0;
+	while (philos[count])
+		count++;
+	return (count);
 }

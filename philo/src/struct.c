@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/10 11:30:00 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:55:15 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,39 @@ t_philo	*init_philo(t_time *t)
 {
 	t_philo		*philo;
 
-
 	philo = malloc(sizeof(t_philo));
 	philo->tid = NULL;
 	philo->state = SLEEP;
 	philo->time = t;
-	philo->i = 1;
-	pthread_mutex_init(&philo->lock, NULL);
+	philo->number = 1;
 	return (philo);
 }
 
-void	free_philo(t_philo *philo)
+t_fork	*init_fork(int index)
 {
-	pthread_mutex_destroy(&philo->lock);
-	free(philo->time);
-	free(philo);
+	t_fork	*fork;	
+
+	fork = malloc(sizeof(t_fork));
+	fork->index = index;
+	pthread_mutex_init(fork->lock, NULL);
+	return (fork);
 }
 
-void	free_all_philos(t_philo **philo)
+t_table	*init_table(t_time *tv, int nbr_of_philos)
 {
-	int	i;
+	t_table	*table;
+	int		i;
 
+	table = malloc(sizeof(t_table));
 	i = 0;
-	while (philo[i])
+	while (i < nbr_of_philos)
 	{
-		free_philo(philo[i]);
+		table->philos[i] = init_philo(tv);
+		table->philos[i]->number += i;
+		table->forks[i] = init_fork(i + 1);
 		i++;
 	}
+	table->philos[i] = NULL;
+	table->forks[i] = NULL;
+	return (table);
 }
