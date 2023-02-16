@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 16:33:48 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:53:17 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,19 @@ void	myturn(t_philo *philo)
 	{
 		if (philo->time->meal_count >= 0 && i > philo->time->meal_count)
 			break ;
+		if (philo->state == DEAD)
+		{
+			pthread_detach(philo->tid);
+			return ;
+		}
 		pthread_join(philo->tid, NULL);
 		eat(philo);
-		philo->last_meal = time_in_ms();
 		slp(philo);
 		think(philo);
 		i++;
 	}
 	pthread_detach(philo->tid);
-	philo->state = DONE;
+	philo->state = DEAD;
 }
 
 void	state_check(t_check *checker)

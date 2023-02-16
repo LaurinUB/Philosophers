@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 16:34:08 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:50:49 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef enum e_state
 	EAT,
 	SLEEP,
 	DEAD,
-	DONE,
 }	t_state;
 
 typedef struct s_time
