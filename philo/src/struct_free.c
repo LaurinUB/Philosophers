@@ -6,21 +6,15 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:00:10 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 17:02:12 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:13:22 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	free_philo(t_philo *philo)
-{
-	free(philo->time);
-	free(philo);
-}
-
 void	free_fork(t_fork *fork)
 {
-	pthread_mutex_destroy(fork->lock);
+	pthread_mutex_destroy(&fork->lock);
 	free(fork);
 }
 
@@ -29,8 +23,9 @@ void	free_all_philos(t_philo **philo)
 	int	i;
 
 	i = -1;
+	free(philo[0]->time);
 	while (philo[++i])
-		free_philo(philo[i]);
+		free(philo[i]);
 }
 
 void	free_all_forks(t_fork **forks)

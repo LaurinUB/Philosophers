@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 19:07:43 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:10:38 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static t_fork	*init_fork(int index)
 
 	fork = malloc(sizeof(t_fork));
 	fork->index = index;
-	pthread_mutex_init(fork->lock, NULL);
+	pthread_mutex_init(&fork->lock, NULL);
 	return (fork);
 }
 

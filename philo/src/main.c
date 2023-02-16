@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 19:00:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:14:36 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ int	main(int argc, char **argv)
 		return (panic("all argument shoudl be > 0 and < INT_MAX", ERROR));
 	table = init_table(tv, check_nbr(argv[1]));
 	if (!table)
-	{
-		// free_table(table);
-		panic("number of Philosophers should be > 0", ERROR);
-	}
-	// free_table(table);
+		return (free_table(table), 
+				panic("number of Philosophers should be > 0", ERROR));
+	free_table(table);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/15 18:51:07 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:13:36 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_philo
 typedef struct s_fork
 {
 	int				index;
-	pthread_mutex_t	*lock;
+	pthread_mutex_t	lock;
 }	t_fork;
 
 typedef struct s_table
@@ -70,7 +70,6 @@ typedef struct s_table
 t_time			*init_time(int ttd, int tte, int tts);
 t_table			*init_table(t_time *tv, int nbr_of_philos);
 
-void			free_philo(t_philo *philo);
 void			free_all_philos(t_philo **philo);
 void			free_fork(t_fork *fork);
 void			free_table(t_table *table);
