@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 10:13:36 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:34:08 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef enum e_state
 	THINK,
 	EAT,
 	SLEEP,
+	DEAD,
+	DONE,
 }	t_state;
 
 typedef struct s_time
@@ -43,6 +45,7 @@ typedef struct s_time
 	int				time_to_die;
 	int				time_to_sleep;
 	unsigned long	start_time;
+	int				meal_count;
 }	t_time;
 
 typedef struct s_philo
@@ -51,32 +54,28 @@ typedef struct s_philo
 	t_state			state;
 	t_time			*time;
 	int				number;
+	unsigned long	last_meal;
+	pthread_mutex_t	fork;
+	pthread_mutex_t	*next_fork;
 }	t_philo;
 
-typedef struct s_fork
+typedef struct	s_check
 {
-	int				index;
-	pthread_mutex_t	lock;
-}	t_fork;
+	pthread_t	tid;
+	t_philo		**philos;
+}	t_check;
 
-typedef struct s_table
-{
-	t_fork	**forks;
-	t_philo	**philos;
-	int		philo_count;
-	int		current;
-}	t_table;
 
 t_time			*init_time(int ttd, int tte, int tts);
-t_table			*init_table(t_time *tv, int nbr_of_philos);
+t_philo			**init_philos(int nbr_of_philos, t_time *tv);
 
 void			free_all_philos(t_philo **philo);
-void			free_fork(t_fork *fork);
-void			free_table(t_table *table);
 
-void			eat(t_philo *philo, t_fork *right_fork, t_fork *left_fork);
+void			eat(t_philo *philo);
 void			think(t_philo *philo);
 void			slp(t_philo *philo);
+void			check_death(t_philo	*philo);
+int				check_for_life(t_philo **philos);
 
 int				panic(char *str, int i);
 long			ft_atol(char *str);
@@ -85,6 +84,7 @@ void			sleep_ms(unsigned long ms);
 unsigned long	time_in_ms(void);
 
 int				check_nbr(char *argv);
+int				check_input(int	argc, char **argv);
 
 char			*get_philo_color(t_philo *philo);
 #endif

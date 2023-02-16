@@ -6,44 +6,71 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 10:14:36 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:33:48 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	myturn(t_table *table)
+void	myturn(t_philo *philo)
 {
-	int	i;
-
-	i = 20;
-	if (!table->philos[table->current + 1])
-		table->current = 1;
-	while (i)
+	int i;
+	
+	i = 0;
+	while (1)
 	{
-		eat(table->philos[table->current], table->forks[table->current], table->forks[table->current + 1]);
-		think(table->philos[table->current]);
-		slp(table->philos[table->current]);
-		i--;
+		if (philo->time->meal_count >= 0 && i > philo->time->meal_count)
+			break ;
+		pthread_join(philo->tid, NULL);
+		eat(philo);
+		philo->last_meal = time_in_ms();
+		slp(philo);
+		think(philo);
+		i++;
+	}
+	pthread_detach(philo->tid);
+	philo->state = DONE;
+}
+
+void	state_check(t_check *checker)
+{
+	int i;
+
+	i = 0;
+	while (1)
+	{
+		if (!checker->philos[i])
+			i = 0;
+		check_death(checker->philos[i]);	
+		if (check_for_life(checker->philos))		
+			break ;
+		i++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
 	t_time	*tv;
-	t_table	*table;
+	t_check	*checker;
+	int		i;
 
-	table = NULL;
 	tv = NULL;
-	if (argc != 5 && argc != 6)
-		return (panic("4 arguments need 5th is optional", ERROR));
+	i = 0;
+	if (check_input(argc, argv))
+		return (ERROR);
 	tv = init_time(check_nbr(argv[2]), check_nbr(argv[3]), check_nbr(argv[4]));
 	if (!tv)
 		return (panic("all argument shoudl be > 0 and < INT_MAX", ERROR));
-	table = init_table(tv, check_nbr(argv[1]));
-	if (!table)
-		return (free_table(table), 
-				panic("number of Philosophers should be > 0", ERROR));
-	free_table(table);
-	return (SUCCESS);
+	if (argv[5] != NULL) 
+		tv->meal_count = check_nbr(argv[5]);
+	checker = malloc(sizeof(t_check));
+	checker->philos = init_philos(check_nbr(argv[1]), tv);
+	while (checker->philos[i])
+	{	
+		pthread_create(&checker->philos[i]->tid, NULL, (void *)myturn, checker->philos[i]);
+		i++;
+	}
+	pthread_create(&checker->tid, NULL, (void *)state_check, checker);
+	pthread_join(checker->tid, NULL);
+	return (free_all_philos(checker->philos), free(checker), SUCCESS);
 }

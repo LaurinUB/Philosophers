@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 10:10:38 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:58:45 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_time	*init_time(int ttd, int tte, int tts)
 	time->time_to_eat = tte;
 	time->time_to_sleep = tts;
 	time->start_time = time_in_ms();
+	time->meal_count = -1;
 	return (time);
 }
 
@@ -34,41 +35,34 @@ static t_philo	*init_philo(t_time *t)
 	philo->tid = NULL;
 	philo->state = SLEEP;
 	philo->time = t;
+	philo->last_meal = t->start_time;
 	philo->number = 1;
+	pthread_mutex_init(&philo->fork, NULL);
+	philo->next_fork = NULL;
 	return (philo);
 }
 
-static t_fork	*init_fork(int index)
+t_philo	**init_philos(int nbr_of_philos, t_time *tv)
 {
-	t_fork	*fork;	
-
-	fork = malloc(sizeof(t_fork));
-	fork->index = index;
-	pthread_mutex_init(&fork->lock, NULL);
-	return (fork);
-}
-
-t_table	*init_table(t_time *tv, int nbr_of_philos)
-{
-	t_table	*table;
 	int		i;
+	t_philo	**philos;
 
-	if (nbr_of_philos < 1 || !tv)
-		return (NULL);
-	table = malloc(sizeof(t_table));
-	table->philos = malloc(sizeof(t_philo *) * nbr_of_philos + 1);
-	table->forks = malloc(sizeof(t_fork *) * nbr_of_philos + 1);
 	i = 0;
+	philos = malloc(sizeof(t_philo *) * nbr_of_philos + 1);
 	while (i < nbr_of_philos)
 	{
-		table->philos[i] = init_philo(tv);
-		table->philos[i]->number += i;
-		table->forks[i] = init_fork(i + 1);
+		philos[i] = init_philo(tv);
+		philos[i]->number += i;
 		i++;
 	}
-	table->philos[i] = NULL;
-	table->forks[i] = NULL;
-	table->philo_count = nbr_of_philos;
-	table->current = 1;
-	return (table);
+	philos[i] = NULL;
+	i = 0;
+	while (philos[i + 1])
+	{
+		philos[i]->next_fork = &philos[i + 1]->fork;
+		i++;
+	}
+	if (i > 0)
+		philos[i]->next_fork = &philos[0]->fork;
+	return (philos);
 }
