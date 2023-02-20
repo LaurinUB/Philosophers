@@ -6,12 +6,11 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:00:10 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 16:02:46 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:04:16 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 void	free_all_philos(t_philo **philo)
 {

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 17:50:49 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:04:02 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ typedef struct s_philo
 	pthread_mutex_t	*next_fork;
 }	t_philo;
 
-typedef struct	s_check
+typedef struct s_check
 {
 	pthread_t	tid;
 	t_philo		**philos;
 }	t_check;
-
 
 t_time			*init_time(int ttd, int tte, int tts);
 t_philo			**init_philos(int nbr_of_philos, t_time *tv);
@@ -83,7 +82,7 @@ void			sleep_ms(unsigned long ms);
 unsigned long	time_in_ms(void);
 
 int				check_nbr(char *argv);
-int				check_input(int	argc, char **argv);
+int				check_input(int argc, char **argv);
 
 char			*get_philo_color(t_philo *philo);
 #endif

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 17:53:17 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/20 08:27:51 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,13 @@
 
 void	myturn(t_philo *philo)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	while (1)
+	while (philo->state != DEAD)
 	{
 		if (philo->time->meal_count >= 0 && i > philo->time->meal_count)
 			break ;
-		if (philo->state == DEAD)
-		{
-			pthread_detach(philo->tid);
-			return ;
-		}
 		pthread_join(philo->tid, NULL);
 		eat(philo);
 		slp(philo);
@@ -38,16 +33,14 @@ void	myturn(t_philo *philo)
 
 void	state_check(t_check *checker)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (1)
+	while (!check_for_life(checker->philos))
 	{
 		if (!checker->philos[i])
 			i = 0;
-		check_death(checker->philos[i]);	
-		if (check_for_life(checker->philos))		
-			break ;
+		check_death(checker->philos[i]);
 		i++;
 	}
 }
@@ -65,13 +58,14 @@ int	main(int argc, char **argv)
 	tv = init_time(check_nbr(argv[2]), check_nbr(argv[3]), check_nbr(argv[4]));
 	if (!tv)
 		return (panic("all argument shoudl be > 0 and < INT_MAX", ERROR));
-	if (argv[5] != NULL) 
+	if (argv[5] != NULL)
 		tv->meal_count = check_nbr(argv[5]);
 	checker = malloc(sizeof(t_check));
 	checker->philos = init_philos(check_nbr(argv[1]), tv);
 	while (checker->philos[i])
 	{	
-		pthread_create(&checker->philos[i]->tid, NULL, (void *)myturn, checker->philos[i]);
+		pthread_create(&checker->philos[i]->tid, NULL,
+			(void *)myturn, checker->philos[i]);
 		i++;
 	}
 	pthread_create(&checker->tid, NULL, (void *)state_check, checker);
