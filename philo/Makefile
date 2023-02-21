@@ -1,7 +1,6 @@
 CC = cc
 NAME = philo
 CFLAGS = -Wall -Wextra -Werror
-LINK_FLAGS = -fsanitize=thread
 SRC_DIR = src
 OBJ_DIR = obj
 DIR_DUP = mkdir -p $(@D)
@@ -20,16 +19,6 @@ SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
-
-LSANLIB = /LeakSanitizer/liblsan.a
-lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
-lsan: LINK_FLAGS += -LLeakSanitizer -llsan -lc++
-lsan: fclean $(LSANLIB)
-lsan: all
-
-$(LSANLIB):
-	@if [ ! -d "LeakSanitizer" ]; then git clone https://github.com/mhahnFr/LeakSanitizer.git; fi
-	@$(MAKE) -C LeakSanitizer
 
 $(NAME): $(OBJ)
 	$(CC) $(LINK_FLAGS) $(OBJ) -o $(NAME)
