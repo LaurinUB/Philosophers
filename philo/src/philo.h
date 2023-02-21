@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/20 15:27:51 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:17:01 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_time
 	unsigned long	start_time;
 	int				meal_count;
 	pthread_mutex_t	print;
-	pthread_mutex_t	deathlock;
 }	t_time;
 
 typedef struct s_philo
@@ -55,6 +54,7 @@ typedef struct s_philo
 	t_state			state;
 	t_time			*time;
 	int				number;
+	int				done;
 	unsigned long	last_meal;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*next_fork;
@@ -74,7 +74,7 @@ void			free_all_philos(t_philo **philo);
 void			eat(t_philo *philo);
 void			think(t_philo *philo);
 void			slp(t_philo *philo);
-void			check_death(t_philo	*philo);
+int				check_death(t_philo	*philo);
 int				check_for_life(t_philo **philos);
 
 int				panic(char *str, int i);

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 08:17:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:21:36 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,18 @@ void	myturn(t_philo *philo)
 	int	i;
 
 	i = 0;
+	if (philo->number % 2 == 0)
+		sleep_ms(3);
 	while (philo->state != DEAD)
 	{
-		if (philo->time->meal_count >= 0 && i >= philo->time->meal_count)
-			break ;
+		pthread_mutex_lock(&philo->time->print);
+		pthread_mutex_unlock(&philo->time->print);
 		eat(philo);
+		if (philo->time->meal_count >= 0 && i >= philo->time->meal_count)
+		{
+			philo->done = 1;
+			break ;
+		}
 		slp(philo);
 		think(philo);
 		i++;
@@ -37,7 +44,14 @@ void	state_check(t_check *checker)
 	{
 		if (!checker->philos[i])
 			i = 0;
-		check_death(checker->philos[i]);
+		pthread_mutex_lock(&checker->philos[0]->time->print);
+		if (check_death(checker->philos[i]))
+		{
+			pthread_detach(checker->philos[i]->tid);
+			pthread_mutex_destroy(&checker->philos[i]->time->print);
+			break ;
+		}
+		pthread_mutex_unlock(&checker->philos[i]->time->print);
 		i++;
 	}
 }
@@ -61,15 +75,9 @@ int	main(int argc, char **argv)
 	if (!checker->philos)
 		return (SUCCESS);
 	while (checker->philos[++i])
-	{	
 		pthread_create(&checker->philos[i]->tid, NULL,
 			(void *)myturn, checker->philos[i]);
-		usleep(1);
-	}
 	pthread_create(&checker->tid, NULL, (void *)state_check, checker);
 	pthread_join(checker->tid, NULL);
-	i = -1;
-	while (checker->philos[++i])
-		pthread_join(checker->philos[i]->tid, NULL);
 	return (free_all_philos(checker->philos), free(checker), SUCCESS);
 }

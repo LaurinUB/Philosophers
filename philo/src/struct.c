@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/20 15:29:20 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:23:54 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_time	*init_time(int ttd, int tte, int tts, char *meal_count)
 	else
 		time->meal_count = -1;
 	pthread_mutex_init(&time->print, NULL);
-	pthread_mutex_init(&time->deathlock, NULL);
 	return (time);
 }
 
@@ -42,6 +41,7 @@ static t_philo	*init_philo(t_time *t)
 	philo->time = t;
 	philo->last_meal = t->start_time;
 	philo->number = 1;
+	philo->done = 0;
 	pthread_mutex_init(&philo->fork, NULL);
 	philo->next_fork = NULL;
 	return (philo);
