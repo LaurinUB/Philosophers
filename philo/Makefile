@@ -11,7 +11,9 @@ SRC = main.c \
 		struct.c \
 		struct_free.c \
 		state.c \
-		color.c
+		color.c \
+		thread.c \
+		checker_util.c
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
