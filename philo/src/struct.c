@@ -6,13 +6,13 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 15:58:45 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:29:20 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_time	*init_time(int ttd, int tte, int tts)
+t_time	*init_time(int ttd, int tte, int tts, char *meal_count)
 {
 	t_time	*time;
 
@@ -23,7 +23,12 @@ t_time	*init_time(int ttd, int tte, int tts)
 	time->time_to_eat = tte;
 	time->time_to_sleep = tts;
 	time->start_time = time_in_ms();
-	time->meal_count = -1;
+	if (meal_count && check_nbr(meal_count) > 0)
+		time->meal_count = check_nbr(meal_count);
+	else
+		time->meal_count = -1;
+	pthread_mutex_init(&time->print, NULL);
+	pthread_mutex_init(&time->deathlock, NULL);
 	return (time);
 }
 
@@ -48,6 +53,8 @@ t_philo	**init_philos(int nbr_of_philos, t_time *tv)
 	t_philo	**philos;
 
 	i = 0;
+	if (nbr_of_philos == 1)
+		return (panic("philo 1 died", ERROR), NULL);
 	philos = malloc(sizeof(t_philo *) * nbr_of_philos + 1);
 	while (i < nbr_of_philos)
 	{

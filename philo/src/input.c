@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:01:09 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/20 08:02:59 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:59:34 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int	check_input(int argc, char **argv)
 		return (panic("4 arguments need 5th is optional", ERROR));
 	if (check_nbr(argv[1]) < 1)
 		return (panic("number of philos should be at least 1", ERROR));
+	if (check_nbr(argv[1]) == 1)
+		return (panic("philo 1 died", ERROR));
 	return (0);
 }

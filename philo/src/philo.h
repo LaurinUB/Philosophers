@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/20 08:04:02 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:27:51 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_time
 	int				time_to_sleep;
 	unsigned long	start_time;
 	int				meal_count;
+	pthread_mutex_t	print;
+	pthread_mutex_t	deathlock;
 }	t_time;
 
 typedef struct s_philo
@@ -60,11 +62,11 @@ typedef struct s_philo
 
 typedef struct s_check
 {
-	pthread_t	tid;
-	t_philo		**philos;
+	pthread_t		tid;
+	t_philo			**philos;
 }	t_check;
 
-t_time			*init_time(int ttd, int tte, int tts);
+t_time			*init_time(int ttd, int tte, int tts, char *meal_count);
 t_philo			**init_philos(int nbr_of_philos, t_time *tv);
 
 void			free_all_philos(t_philo **philo);

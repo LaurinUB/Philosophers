@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:49 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/20 08:27:51 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 08:17:34 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,13 @@ void	myturn(t_philo *philo)
 	i = 0;
 	while (philo->state != DEAD)
 	{
-		if (philo->time->meal_count >= 0 && i > philo->time->meal_count)
+		if (philo->time->meal_count >= 0 && i >= philo->time->meal_count)
 			break ;
-		pthread_join(philo->tid, NULL);
 		eat(philo);
 		slp(philo);
 		think(philo);
 		i++;
 	}
-	pthread_detach(philo->tid);
-	philo->state = DEAD;
 }
 
 void	state_check(t_check *checker)
@@ -52,23 +49,27 @@ int	main(int argc, char **argv)
 	int		i;
 
 	tv = NULL;
-	i = 0;
+	i = -1;
 	if (check_input(argc, argv))
 		return (ERROR);
-	tv = init_time(check_nbr(argv[2]), check_nbr(argv[3]), check_nbr(argv[4]));
+	tv = init_time(check_nbr(argv[2]), check_nbr(argv[3]), check_nbr(argv[4]),
+			argv[5]);
 	if (!tv)
 		return (panic("all argument shoudl be > 0 and < INT_MAX", ERROR));
-	if (argv[5] != NULL)
-		tv->meal_count = check_nbr(argv[5]);
 	checker = malloc(sizeof(t_check));
 	checker->philos = init_philos(check_nbr(argv[1]), tv);
-	while (checker->philos[i])
+	if (!checker->philos)
+		return (SUCCESS);
+	while (checker->philos[++i])
 	{	
 		pthread_create(&checker->philos[i]->tid, NULL,
 			(void *)myturn, checker->philos[i]);
-		i++;
+		usleep(1);
 	}
 	pthread_create(&checker->tid, NULL, (void *)state_check, checker);
 	pthread_join(checker->tid, NULL);
+	i = -1;
+	while (checker->philos[++i])
+		pthread_join(checker->philos[i]->tid, NULL);
 	return (free_all_philos(checker->philos), free(checker), SUCCESS);
 }

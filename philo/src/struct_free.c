@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:00:10 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/20 08:04:16 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:58:33 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	free_all_philos(t_philo **philo)
 	int	i;
 
 	i = -1;
+	pthread_mutex_destroy(&philo[0]->time->print);
 	free(philo[0]->time);
 	while (philo[++i])
 	{
