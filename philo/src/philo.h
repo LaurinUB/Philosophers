@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 15:28:17 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:40:16 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			state_check(t_check *checker);
 
 int				check_death(t_philo	*philo);
 int				check_for_life(t_philo **philos);
+int				check_done(t_philo **philos);
 
 int				panic(char *str, int i);
 long			ft_atol(char *str);

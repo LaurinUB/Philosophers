@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:31 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 15:27:40 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:43:17 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	myturn(t_philo *philo)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (philo->number % 2 == 0)
-		sleep_ms(3);
+		sleep_ms(2);
 	while (philo->state != DEAD)
 	{
 		pthread_mutex_lock(&philo->time->print);
 		pthread_mutex_unlock(&philo->time->print);
 		eat(philo);
-		if (philo->time->meal_count >= 0 && i >= philo->time->meal_count)
+		if (philo->time->meal_count >= 0 && i == philo->time->meal_count)
 		{
 			philo->done = 1;
 			break ;
@@ -45,7 +45,7 @@ void	state_check(t_check *checker)
 		if (!checker->philos[i])
 			i = 0;
 		pthread_mutex_lock(&checker->philos[0]->time->print);
-		if (check_death(checker->philos[i]))
+		if (check_death(checker->philos[i]) || check_done(checker->philos))
 		{
 			pthread_detach(checker->philos[i]->tid);
 			pthread_mutex_destroy(&checker->philos[i]->time->print);

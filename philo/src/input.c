@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:01:09 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/20 12:59:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:28:19 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,19 @@ int	check_nbr(char *argv)
 
 int	check_input(int argc, char **argv)
 {
+	int	i;
+
+	i = 1;
 	if (argc != 5 && argc != 6)
 		return (panic("4 arguments need 5th is optional", ERROR));
 	if (check_nbr(argv[1]) < 1)
 		return (panic("number of philos should be at least 1", ERROR));
+	while (argv[i])
+	{
+		if (check_nbr(argv[i]) < 0)
+			return (panic("all argument shoudl be > 0 and < INT_MAX", ERROR));
+		i++;
+	}
 	if (check_nbr(argv[1]) == 1)
 		return (panic("philo 1 died", ERROR));
 	return (0);

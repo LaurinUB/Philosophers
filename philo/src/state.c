@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:12:31 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 15:26:45 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:26:52 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ void	eat(t_philo *philo)
 {
 	if (philo->state != DEAD)
 	{
-		pthread_mutex_lock(&philo->time->print);
 		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_lock(&philo->time->print);
 		printf("%s%lu	philo %d has taken left fork\n", get_philo_color(philo),
 			time_in_ms() - philo->time->start_time, philo->number);
+		pthread_mutex_unlock(&philo->time->print);
 		pthread_mutex_lock(philo->next_fork);
+		pthread_mutex_lock(&philo->time->print);
 		printf("%s%lu	philo %d has taken right fork\n", get_philo_color(philo),
 			time_in_ms() - philo->time->start_time, philo->number);
+		pthread_mutex_unlock(&philo->time->print);
+		pthread_mutex_lock(&philo->time->print);
 		printf("%s%lu	philo %d is eating\n", get_philo_color(philo),
 			time_in_ms() - philo->time->start_time, philo->number);
 		pthread_mutex_unlock(&philo->time->print);

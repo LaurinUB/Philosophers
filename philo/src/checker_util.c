@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:26:32 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 15:26:42 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:39:30 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	check_death(t_philo	*philo)
 		philo->state = DEAD;
 		return (1);
 	}
-	if (philo->done)
-		return (1);
 	return (0);
 }
 
@@ -39,4 +37,18 @@ int	check_for_life(t_philo **philos)
 		i++;
 	}
 	return (0);
+}
+
+int	check_done(t_philo **philos)
+{
+	int	i;
+
+	i = 0;
+	while (philos[i])
+	{
+		if (!philos[i]->done)
+			return (0);
+		i++;
+	}
+	return (1);
 }
