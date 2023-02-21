@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:01:09 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 18:28:19 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:18:12 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,5 @@ int	check_input(int argc, char **argv)
 			return (panic("all argument shoudl be > 0 and < INT_MAX", ERROR));
 		i++;
 	}
-	if (check_nbr(argv[1]) == 1)
-		return (panic("philo 1 died", ERROR));
 	return (0);
 }

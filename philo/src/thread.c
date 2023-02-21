@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:27:31 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 18:43:17 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:06:43 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ void	state_check(t_check *checker)
 		if (!checker->philos[i])
 			i = 0;
 		pthread_mutex_lock(&checker->philos[0]->time->print);
-		if (check_death(checker->philos[i]) || check_done(checker->philos))
+		if (check_done(checker->philos))
+			break ;
+		if (check_death(checker->philos[i]))
 		{
-			pthread_detach(checker->philos[i]->tid);
 			pthread_mutex_destroy(&checker->philos[i]->time->print);
 			break ;
 		}

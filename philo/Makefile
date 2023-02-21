@@ -1,6 +1,7 @@
 CC = cc
 NAME = philo
 CFLAGS = -Wall -Wextra -Werror
+LINK_FLAGS = -fsanitize=thread
 SRC_DIR = src
 OBJ_DIR = obj
 DIR_DUP = mkdir -p $(@D)

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 15:23:54 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:18:03 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_philo	**init_philos(int nbr_of_philos, t_time *tv)
 	t_philo	**philos;
 
 	i = 0;
-	if (nbr_of_philos == 1)
-		return (panic("philo 1 died", ERROR), NULL);
 	philos = malloc(sizeof(t_philo *) * nbr_of_philos + 1);
 	while (i < nbr_of_philos)
 	{
@@ -64,6 +62,8 @@ t_philo	**init_philos(int nbr_of_philos, t_time *tv)
 	}
 	philos[i] = NULL;
 	i = 0;
+	if (!philos[i + 1])
+		philos[i]->next_fork = &philos[i]->fork;
 	while (philos[i + 1])
 	{
 		philos[i]->next_fork = &philos[i + 1]->fork;
