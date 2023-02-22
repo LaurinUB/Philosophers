@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 20:19:33 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:49:50 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <semaphore.h>
 
 typedef enum e_state
 {
@@ -46,7 +49,7 @@ typedef struct s_time
 	int				time_to_sleep;
 	unsigned long	start_time;
 	int				meal_count;
-	pthread_mutex_t	print;
+	sem_t			*forks;
 }	t_time;
 
 typedef struct s_philo
@@ -57,8 +60,6 @@ typedef struct s_philo
 	int				number;
 	int				done;
 	unsigned long	last_meal;
-	pthread_mutex_t	fork;
-	pthread_mutex_t	*next_fork;
 }	t_philo;
 
 typedef struct s_check
