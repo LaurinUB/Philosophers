@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/22 13:51:21 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:20:24 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static t_philo	*init_philo(t_time *t)
 	t_philo		*philo;
 
 	philo = malloc(sizeof(t_philo));
-	philo->tid = NULL;
 	philo->state = SLEEP;
 	philo->time = t;
 	philo->last_meal = t->start_time;

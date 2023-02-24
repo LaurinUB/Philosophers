@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/22 13:49:50 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:20:37 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # define MAG "\x1B[35m"
 # define CYN "\x1B[36m"
 # define WHT "\x1B[37m"
+# define LRED "\x1B[91m"
+# define LGRN "\x1B[92m"
+# define LYEL "\x1B[93m"
+# define LBLU "\x1B[94m"
+# define LMAG "\x1B[95m"
+# define LCYN "\x1B[96m"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -50,16 +56,17 @@ typedef struct s_time
 	unsigned long	start_time;
 	int				meal_count;
 	sem_t			*forks;
+	sem_t			*print;
 }	t_time;
 
 typedef struct s_philo
 {
-	pthread_t		tid;
 	t_state			state;
 	t_time			*time;
 	int				number;
 	int				done;
 	unsigned long	last_meal;
+	pid_t			pid;
 }	t_philo;
 
 typedef struct s_check
@@ -77,9 +84,15 @@ long				ft_atol(char *str);
 void				putendl_fd(char *str, int fd);
 int					panic(char *msg, int exit_code);
 
+void				eat(t_philo *philo);
+void				think(t_philo *philo);
+void				slp(t_philo *philo);
+
 t_time				*init_time(int ttd, int tte, int tts, char *meal_count);
 t_philo				**init_philos(int nbr_of_philos, t_time *tv);
 
 void				free_all_philos(t_philo **philo);
+
+char				*get_philo_color(t_philo *philo);
 
 #endif

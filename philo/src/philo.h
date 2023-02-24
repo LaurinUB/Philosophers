@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:52 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/21 18:40:16 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/24 09:03:16 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # define MAG "\x1B[35m"
 # define CYN "\x1B[36m"
 # define WHT "\x1B[37m"
+# define LRED "\x1B[91m"
+# define LGRN "\x1B[92m"
+# define LYEL "\x1B[93m"
+# define LBLU "\x1B[94m"
+# define LMAG "\x1B[95m"
+# define LCYN "\x1B[96m"
 
 # include <stdio.h>
 # include <unistd.h>

@@ -9,7 +9,9 @@ SRC = main_bonus.c \
 	  input_bonus.c \
 	  struct_bonus.c \
 	  struct_free_bonus.c \
-	  util_bonus.c
+	  util_bonus.c \
+	  color_bonus.c \
+	  state_bonus.c
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
