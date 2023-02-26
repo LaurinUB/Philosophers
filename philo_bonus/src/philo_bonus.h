@@ -6,10 +6,9 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/24 09:20:37 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:53:53 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
@@ -39,6 +38,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <semaphore.h>
+# include <signal.h>
 
 typedef enum e_state
 {
