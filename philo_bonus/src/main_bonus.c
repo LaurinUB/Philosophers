@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:05 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/24 17:10:43 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/27 08:52:55 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	creat_child(t_philo *philo)
 {
 	philo->pid = fork();
 	if (philo->number % 2 == 0)
-		sleep_ms(3);
+		sleep_ms(5);
 	if (philo->pid == 0)
 	{
 		while (1)
