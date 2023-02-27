@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/24 13:53:53 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/27 18:34:01 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ typedef struct s_time
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
+	int				forknbr;
 	unsigned long	start_time;
 	int				meal_count;
 	sem_t			*forks;
 	sem_t			*print;
+	sem_t			*death;
 }	t_time;
 
 typedef struct s_philo
@@ -64,7 +66,6 @@ typedef struct s_philo
 	t_state			state;
 	t_time			*time;
 	int				number;
-	int				done;
 	unsigned long	last_meal;
 	pid_t			pid;
 }	t_philo;
@@ -77,6 +78,8 @@ typedef struct s_check
 
 int					check_nbr(char *argv);
 int					check_input(int argc, char **argv);
+
+void				check_death(t_philo *philo);
 
 unsigned long		time_in_ms(void);
 void				sleep_ms(unsigned long ms);

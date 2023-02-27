@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:00:10 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/22 13:51:35 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:16:26 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	free_all_philos(t_philo **philo)
 	i = -1;
 	free(philo[0]->time);
 	while (philo[++i])
-	{
-		pthread_detach(philo[i]->tid);
 		free(philo[i]);
-	}
-	free(philo);
+	if (philo)
+		free(philo);
 }
