@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:10:19 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/27 09:38:46 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/28 11:29:55 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static t_philo	*init_philo(t_time *t)
 	philo->time = t;
 	philo->last_meal = t->start_time;
 	philo->number = 1;
-	philo->done = 0;
 	return (philo);
 }
 

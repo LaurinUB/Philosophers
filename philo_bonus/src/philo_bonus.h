@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/27 18:34:01 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/28 11:28:17 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_philo
 	int				number;
 	unsigned long	last_meal;
 	pid_t			pid;
+	pthread_t		tid;
 }	t_philo;
 
 typedef struct s_check
@@ -80,6 +81,9 @@ int					check_nbr(char *argv);
 int					check_input(int argc, char **argv);
 
 void				check_death(t_philo *philo);
+
+void				init_sem(t_time *tv, int nbr);
+void				close_sem(t_time *tv);
 
 unsigned long		time_in_ms(void);
 void				sleep_ms(unsigned long ms);
