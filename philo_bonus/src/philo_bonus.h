@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/28 11:28:17 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:41:35 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_time
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
-	int				forknbr;
+	int				number;
 	unsigned long	start_time;
 	int				meal_count;
 	sem_t			*forks;
