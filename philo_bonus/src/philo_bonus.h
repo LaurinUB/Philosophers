@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:25:37 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/28 17:41:35 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:35:23 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int					check_nbr(char *argv);
 int					check_input(int argc, char **argv);
 
 void				check_death(t_philo *philo);
+void				creat_child(t_philo *philo);
 
 void				init_sem(t_time *tv, int nbr);
 void				close_sem(t_time *tv);
@@ -98,7 +99,7 @@ void				slp(t_philo *philo);
 t_time				*init_time(int ttd, int tte, int tts, char *meal_count);
 t_philo				**init_philos(int nbr_of_philos, t_time *tv);
 
-void				free_all_philos(t_philo **philo);
+void				kill_all(t_philo **philos, t_time *tv);
 
 char				*get_philo_color(t_philo *philo);
 

@@ -6,20 +6,23 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:00:10 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/03/01 11:07:13 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:35:48 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	free_all_philos(t_philo **philo)
+void	kill_all(t_philo **philos, t_time *tv)
 {
 	int	i;
 
-	i = -1;
-	free(philo[0]->time);
-	while (philo[++i])
-		free(philo[i]);
-	if (philo)
-		free(philo);
+	i = 0;
+	while (i < tv->number)
+	{
+		pthread_detach(philos[i]->tid);
+		kill(philos[i]->pid, SIGINT);
+		free(philos[i]);
+		i++;
+	}
+	free(philos);
 }
