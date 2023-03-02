@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 11:34:10 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/03/01 11:34:45 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/02 09:02:19 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	creat_child(t_philo *philo)
 			sem_post(philo->time->death);
 			eat(philo);
 			if (philo->time->meal_count >= 0 && i == philo->time->meal_count)
-				return ;
+				exit(ERROR);	
 			slp(philo);
 			think(philo);
 			i++;

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:46:42 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/02/16 17:55:47 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/03/02 09:03:51 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sleep_ms(unsigned long ms)
 
 	start = time_in_ms();
 	while ((time_in_ms() - start) < ms)
-		usleep(1);
+		usleep(100);
 }
 
 long	ft_atol(char *str)
